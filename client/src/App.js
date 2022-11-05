@@ -1,12 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Dashboard from "./components/Dashboard";
+import PhoneVerify from "./components/PhoneVerify";
 
 function App() {
-  return (
-    <div>
-    <p>How would you React if i say I 🧡 Vue!</p>
- </div>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Login />} />
+                <Route path='/register' element={<Signup />} />
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='phone/verify' element={<PhoneVerify />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
