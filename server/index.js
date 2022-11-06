@@ -2,10 +2,43 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const PORT = 5000;
+const { Novu } = require("@novu/node");
+const { signedCookie } = require("cookie-parser");
+const novu = new Novu("db306ab6d7eeb55bef0a1138ad2ccabf");
+
+
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
+
+
+
+//👇🏻 Generates the code to be sent via SMS
+const generateCode = () => Math.random().toString(36).substring(2, 12);
+
+const sendNovuNotification = async (recipient, verificationCode) => {
+    try {
+        let response = await novu.trigger("<NOTIFICATION_TEMPLATE_ID>", {
+            to: {
+                subscriberId: recipient,
+                phone: recipient,
+            },
+            payload: {
+                code: verificationCode,
+            },
+        });
+        console.log(response);
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+
+
+
 
 //👇🏻 Generates a random string as the ID
 const generateID = () => Math.random().toString(36).substring(2, 10);
@@ -63,10 +96,16 @@ app.post("/api/register", (req, res) => {
 });
 
 
-
-
-
+// "subscriberId": "6366db059e04bb11b54efab6",
+// +14793411973 twillo
+// ACa2de2b0e0cfb59d015eb1058884cceb9 SID
+// c9a125cd0f7dec0ea8402cd3610fcf15 AUTH TOKEN
 
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT} 🪐🚀`);
 });
+
+
+                  
+
+                  
