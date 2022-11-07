@@ -4,7 +4,8 @@ const app = express();
 const PORT = 5000;
 const { Novu } = require("@novu/node");
 const { signedCookie } = require("cookie-parser");
-const novu = new Novu("db306ab6d7eeb55bef0a1138ad2ccabf");
+
+// const novu = new Novu("db306ab6d7eeb55bef0a1138ad2ccabf");
 
 
 
@@ -97,4 +98,4 @@ app.listen(PORT, () => {
 	console.log(`Server listening live on ${PORT} 🪐🚀`);
 });
 
-              
+        
